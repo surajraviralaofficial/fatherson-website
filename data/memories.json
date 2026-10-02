@@ -27,7 +27,10 @@
     "title": "Park Adventure with Ice Cream",
     "type": "MESSAGE",
     "description": "We spent the whole afternoon playing on the swings. Seeing you laugh so hard makes my world complete. We even got ice cream afterwards!",
-    "mediaUrl": "/media/image.png",
+    "mediaUrls": [
+      "/media/image.png",
+      "/media/image copy.png"
+    ],
     "isFavorite": true
   }
 ]
