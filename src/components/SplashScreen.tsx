@@ -52,8 +52,12 @@ const AnimatedBicycleKid = ({ className }: { className: string }) => (
         <div className={styles.spoke}></div>
         <div className={`${styles.spoke} ${styles.spoke2}`}></div>
       </div>
-      <div className={styles.frame1}></div>
-      <div className={styles.frame2}></div>
+      
+      <div className={styles.frameTop}></div>
+      <div className={styles.frameDown}></div>
+      <div className={styles.frameSeat}></div>
+      <div className={styles.frameBack}></div>
+      <div className={styles.fork}></div>
       <div className={styles.handlebar}></div>
     </div>
 

@@ -233,7 +233,7 @@
 
 
 /* =========================================
-   KID ON BICYCLE
+   KID ON BICYCLE (PERFECTLY ALIGNED)
    ========================================= */
 
 .kidOnBike {
@@ -241,44 +241,74 @@
   margin-left: 20px;
 }
 
-/* Kid's posture */
+/* Aligning kid to the seat perfectly */
 .kidOnBike .bodyWrapper {
   animation: none;
-  transform: translateY(12px) rotate(25deg); /* Sitting on bike and leaning forward */
+  transform: translateY(12px) translateX(-4px); 
+}
+
+/* Torso leaning forward */
+.kidOnBike .torso {
+  transform: rotate(20deg);
+}
+.kidOnBike .head {
+  transform: translate(6px, 2px); 
 }
 
 /* Kid's arms holding handlebars */
 .kidOnBike .arm {
   animation: none;
-  transform: rotate(-65deg);
+  transform: rotate(-60deg);
+  top: 15px;
+  left: 17px;
 }
 .kidOnBike .lowerArm {
   animation: none;
-  transform: rotate(-10deg);
+  transform: rotate(-15deg);
 }
 
-/* Kid's pedaling legs */
-.kidOnBike .legRight { animation: pedalLeg 0.5s infinite linear; }
-.kidOnBike .legLeft { animation: pedalLeg 0.5s infinite linear -0.25s; }
-.kidOnBike .lowerLegRight { animation: pedalLowerLeg 0.5s infinite linear; }
-.kidOnBike .lowerLegLeft { animation: pedalLowerLeg 0.5s infinite linear -0.25s; }
+/* Kid's pedaling legs - circular motion */
+.kidOnBike .leg { top: 36px; left: 14px; }
+.kidOnBike .legRight { animation: pedalLegRight 0.7s infinite linear; }
+.kidOnBike .legLeft { animation: pedalLegLeft 0.7s infinite linear; }
+.kidOnBike .lowerLegRight { animation: pedalLowerLegRight 0.7s infinite linear; }
+.kidOnBike .lowerLegLeft { animation: pedalLowerLegLeft 0.7s infinite linear; }
 
-@keyframes pedalLeg {
-  0% { transform: rotate(10deg); }
-  50% { transform: rotate(80deg); }
-  100% { transform: rotate(10deg); }
+@keyframes pedalLegRight {
+  0% { transform: rotate(-25deg); }   
+  25% { transform: rotate(15deg); }   
+  50% { transform: rotate(45deg); }   
+  75% { transform: rotate(15deg); }   
+  100% { transform: rotate(-25deg); }
 }
-@keyframes pedalLowerLeg {
-  0% { transform: rotate(0deg); }
-  50% { transform: rotate(70deg); }
-  100% { transform: rotate(0deg); }
+@keyframes pedalLegLeft {
+  0% { transform: rotate(45deg); }    
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(-25deg); }
+  75% { transform: rotate(15deg); }
+  100% { transform: rotate(45deg); }
 }
 
-/* The Bicycle */
+@keyframes pedalLowerLegRight {
+  0% { transform: rotate(100deg); }    
+  25% { transform: rotate(15deg); }   
+  50% { transform: rotate(30deg); }   
+  75% { transform: rotate(110deg); }  
+  100% { transform: rotate(100deg); }
+}
+@keyframes pedalLowerLegLeft {
+  0% { transform: rotate(30deg); }    
+  25% { transform: rotate(110deg); }   
+  50% { transform: rotate(100deg); }   
+  75% { transform: rotate(15deg); }  
+  100% { transform: rotate(30deg); }
+}
+
+/* The Bicycle Frame */
 .bike {
   position: absolute;
   bottom: 0px;
-  left: -15px;
+  left: -8px;
   width: 70px;
   height: 40px;
   z-index: 5;
@@ -290,7 +320,7 @@
   height: 26px;
   border: 3px solid #fbbf24;
   border-radius: 50%;
-  bottom: 0;
+  bottom: -4px;
   animation: spinWheel 0.5s infinite linear;
 }
 .wheelFront { left: 45px; }
@@ -306,37 +336,30 @@
 }
 .spoke2 { transform: translateY(-50%) rotate(90deg); }
 
-.frame1 {
-  position: absolute;
-  width: 40px;
-  height: 3px;
-  background: #fbbf24;
-  bottom: 12px;
-  left: 5px;
-  transform: rotate(-15deg);
-  border-radius: 2px;
+/* Diamond Frame Parts */
+.frameTop {
+  position: absolute; width: 28px; height: 3px; background: #fbbf24;
+  bottom: 22px; left: 16px; transform: rotate(10deg); border-radius: 2px;
 }
-
-.frame2 {
-  position: absolute;
-  width: 32px;
-  height: 3px;
-  background: #fbbf24;
-  bottom: 16px;
-  left: 0px;
-  transform: rotate(50deg);
-  border-radius: 2px;
+.frameDown {
+  position: absolute; width: 30px; height: 3px; background: #fbbf24;
+  bottom: 15px; left: 24px; transform: rotate(60deg); border-radius: 2px;
 }
-
+.frameSeat {
+  position: absolute; width: 22px; height: 3px; background: #fbbf24;
+  bottom: 15px; left: 14px; transform: rotate(-65deg); border-radius: 2px;
+}
+.frameBack {
+  position: absolute; width: 25px; height: 3px; background: #fbbf24;
+  bottom: 10px; left: 8px; border-radius: 2px;
+}
+.fork {
+  position: absolute; width: 28px; height: 3px; background: #fbbf24;
+  bottom: 17px; left: 40px; transform: rotate(70deg); border-radius: 2px;
+}
 .handlebar {
-  position: absolute;
-  width: 3px;
-  height: 22px;
-  background: #fbbf24;
-  bottom: 14px;
-  left: 55px;
-  transform: rotate(20deg);
-  border-radius: 2px;
+  position: absolute; width: 3px; height: 14px; background: #fbbf24;
+  bottom: 26px; left: 45px; transform: rotate(20deg); border-radius: 2px;
 }
 
 @keyframes spinWheel {
