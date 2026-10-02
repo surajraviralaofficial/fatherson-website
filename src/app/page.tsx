@@ -25,6 +25,12 @@ export default function Home() {
   
   // Controls the full screen modal
   const [activeMemory, setActiveMemory] = useState<Memory | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openModal = (memory: Memory, startIndex: number = 0) => {
+    setActiveMemory(memory);
+    setCurrentImageIndex(startIndex);
+  };
 
   const memories: Memory[] = data as Memory[];
 
@@ -120,7 +126,7 @@ export default function Home() {
                     <article 
                       key={memory.id} 
                       className={styles.memoryCard}
-                      onClick={() => setActiveMemory(memory)}
+                      onClick={() => openModal(memory, 0)}
                     >
                       <div className={styles.dateBadge}>{memory.date}</div>
                       <h4>{memory.title} {memory.isFavorite && '🌟'}</h4>
@@ -142,6 +148,10 @@ export default function Home() {
                               alt={`${memory.title} ${idx + 1}`} 
                               className={styles.memoryImage} 
                               loading="lazy"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openModal(memory, idx);
+                              }}
                             />
                           ))}
                         </div>
@@ -162,7 +172,7 @@ export default function Home() {
                    <div 
                      key={item.uniqueId} 
                      className={styles.galleryItem}
-                     onClick={() => setActiveMemory(item)}
+                     onClick={() => openModal(item, 0)}
                    >
                      <img src={item.mediaUrl} alt={item.title} loading="lazy" />
                      <div className={styles.galleryOverlay}>
@@ -199,15 +209,36 @@ export default function Home() {
             )}
 
             {activeMemory.mediaUrls && activeMemory.mediaUrls.length > 0 && (
-              <div className={styles.modalImageGrid}>
-                 {activeMemory.mediaUrls.map((url, idx) => (
-                    <img 
-                      key={idx}
-                      src={url} 
-                      className={styles.modalImage} 
-                      alt={`${activeMemory.title} ${idx + 1}`}
+              <div className={styles.carouselContainer}>
+                <button 
+                  className={`${styles.carouselBtn} ${styles.prevBtn}`}
+                  onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(prev => prev > 0 ? prev - 1 : activeMemory.mediaUrls!.length - 1); }}
+                >
+                  ◀
+                </button>
+                
+                <img 
+                  src={activeMemory.mediaUrls[currentImageIndex]} 
+                  className={styles.modalImage} 
+                  alt={`${activeMemory.title} ${currentImageIndex + 1}`}
+                />
+                
+                <button 
+                  className={`${styles.carouselBtn} ${styles.nextBtn}`}
+                  onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(prev => prev < activeMemory.mediaUrls!.length - 1 ? prev + 1 : 0); }}
+                >
+                  ▶
+                </button>
+                
+                <div className={styles.carouselDots}>
+                  {activeMemory.mediaUrls.map((_, idx) => (
+                    <span 
+                      key={idx} 
+                      className={`${styles.dot} ${idx === currentImageIndex ? styles.activeDot : ''}`}
+                      onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
                     />
-                 ))}
+                  ))}
+                </div>
               </div>
             )}
             
