@@ -20,5 +20,14 @@
     "title": "Park Adventure",
     "type": "MESSAGE",
     "description": "We spent the whole afternoon playing on the swings. Seeing you laugh so hard makes my world complete."
+  },
+  {
+    "id": "4",
+    "date": "2026-10-02",
+    "title": "Park Adventure with Ice Cream",
+    "type": "MESSAGE",
+    "description": "We spent the whole afternoon playing on the swings. Seeing you laugh so hard makes my world complete. We even got ice cream afterwards!",
+    "mediaUrl": "https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=1200&auto=format&fit=crop",
+    "isFavorite": true
   }
 ]
