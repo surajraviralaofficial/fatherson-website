@@ -82,21 +82,37 @@
   margin-top: 30px;
 }
 
-.stat {
+.statBtn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--card-border);
   padding: 15px 30px;
   border-radius: 20px;
   font-weight: 600;
   font-size: 1.1rem;
-  color: var(--accent);
+  color: var(--text-muted);
   backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+
+.statBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+  transform: translateY(-2px);
+}
+
+.activeStat {
+  background: rgba(251, 191, 36, 0.15);
+  border-color: rgba(251, 191, 36, 0.5);
+  color: var(--accent);
 }
 
 .timelineSection {
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
+  animation: fadeIn 0.5s ease-out;
 }
 
 @media (min-width: 900px) {
@@ -147,6 +163,7 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   position: relative;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+  cursor: pointer;
 }
 
 .memoryCard::before {
@@ -165,6 +182,7 @@
 .memoryCard:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  border-color: rgba(251, 191, 36, 0.3);
 }
 
 .dateBadge {
@@ -189,12 +207,173 @@
   color: var(--text-muted);
   line-height: 1.8;
   margin-bottom: 25px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .memoryImage {
   width: 100%;
+  height: 250px;
+  object-fit: cover;
   border-radius: 16px;
   box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+
+/* GALLERY VIEW */
+.gallerySection {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.galleryItem {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+  aspect-ratio: 1;
+}
+
+.galleryItem:hover {
+  transform: scale(1.02);
+}
+
+.galleryItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.galleryItem:hover img {
+  transform: scale(1.1);
+}
+
+.galleryOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.galleryItem:hover .galleryOverlay {
+  opacity: 1;
+}
+
+.galleryTitle {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.galleryDate {
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+
+/* FULL SCREEN MODAL */
+.fullScreenModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 9999;
+  overflow-y: auto;
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modalHeader {
+  position: sticky;
+  top: 0;
+  padding: 20px 40px;
+  background: linear-gradient(to bottom, rgba(2, 6, 23, 1), transparent);
+  z-index: 10;
+}
+
+.backButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.backButton:hover {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+.modalContent {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px;
+  width: 100%;
+}
+
+.modalDate {
+  font-size: 1.2rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.modalTitle {
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 40px;
+  line-height: 1.1;
+}
+
+.modalImage {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  margin-bottom: 40px;
+  background: #000;
+}
+
+.modalDesc {
+  font-size: 1.4rem;
+  color: var(--text-main);
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
 }
 
 .contentReady {
@@ -226,7 +405,6 @@
   .heroContent h2 { font-size: 2rem; }
   
   .stats { flex-direction: column; gap: 15px; margin-top: 20px; }
-  .stat { font-size: 1rem; padding: 12px 20px; }
   
   .timeline { padding-left: 20px; }
   .timelineHeader { margin-bottom: 30px; }
@@ -234,16 +412,9 @@
   
   .memoryCard { padding: 20px; border-radius: 16px; margin-bottom: 40px; }
   .memoryCard h4 { font-size: 1.5rem; margin-bottom: 10px; }
-  .memoryCard p { font-size: 1rem; margin-bottom: 15px; }
-  .memoryCard::before { left: -28px; width: 16px; height: 16px; top: 25px; }
-}
-
-@media (max-width: 480px) {
-  .header h1 { font-size: 2rem; }
-  .heroBanner { height: 200px; }
-  .heroContent h2 { font-size: 1.6rem; }
-  .timelineHeader h3 { font-size: 1.6rem; }
-  .memoryCard h4 { font-size: 1.3rem; }
-  .memoryCard::before { left: -26px; }
-  .timeline { padding-left: 15px; }
+  
+  .modalTitle { font-size: 2.5rem; }
+  .modalDesc { font-size: 1.1rem; }
+  .modalContent { padding: 20px; }
+  .modalHeader { padding: 20px; }
 }
