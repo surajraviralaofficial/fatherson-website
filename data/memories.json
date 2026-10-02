@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "date": "2026-09-18",
+    "title": "His First Bicycle Ride",
+    "type": "MESSAGE",
+    "description": "Today you rode your bicycle without support wheels for the very first time. You were nervous at first but after a few attempts you smiled and shouted, \"Dad, look at me!\" This is a day I will never forget."
+  },
+  {
+    "id": "2",
+    "date": "2026-09-18",
+    "title": "Victory Smile",
+    "type": "PHOTO",
+    "mediaUrl": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    "id": "3",
+    "date": "2026-09-23",
+    "title": "Park Adventure",
+    "type": "MESSAGE",
+    "description": "We spent the whole afternoon playing on the swings. Seeing you laugh so hard makes my world complete."
+  }
+]

@@ -1,0 +1,206 @@
+.main {
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+.header {
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
+  color: white;
+  padding: 80px 10%;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to top, var(--background), transparent);
+}
+
+.header h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.header p {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 600px;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: -40px;
+  position: relative;
+  z-index: 10;
+}
+
+.heroCard {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 40px;
+  border: 1px solid var(--card-border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.heroCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.heroBanner {
+  height: 250px;
+  background: url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1600&auto=format&fit=crop') center center / cover;
+}
+
+.heroContent {
+  padding: 30px;
+}
+
+.heroContent h2 {
+  font-size: 2.2rem;
+  color: var(--secondary);
+}
+
+.heroContent p {
+  color: #64748b;
+  font-size: 1.1rem;
+  margin-top: 5px;
+}
+
+.stats {
+  margin-top: 25px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  background: linear-gradient(135deg, #e0e7ff, #f1f5f9);
+  padding: 15px 25px;
+  border-radius: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.timeline {
+  background: var(--card-bg);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+}
+
+.timelineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.timelineHeader h3 {
+  font-size: 1.8rem;
+  color: var(--secondary);
+}
+
+.memoryCard {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+  border: 1px solid #f1f5f9;
+  transition: transform 0.3s ease;
+}
+
+.memoryCard:hover {
+  transform: translateX(10px);
+}
+
+.tag {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: white;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.tagMessage { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.tagPhoto { background: linear-gradient(135deg, #10b981, #059669); }
+.tagVideo { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+.memoryCard h4 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #1e293b;
+}
+
+.memoryCard p {
+  color: #475569;
+  line-height: 1.7;
+}
+
+.memoryImage {
+  width: 100%;
+  border-radius: 16px;
+  margin-top: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  object-fit: cover;
+  max-height: 400px;
+}
+
+.dateBadge {
+  font-size: 0.9rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.contentReady {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 900px) {
+  .dashboard {
+    grid-template-columns: 350px 1fr;
+  }
+}
