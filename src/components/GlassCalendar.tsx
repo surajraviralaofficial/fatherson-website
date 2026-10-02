@@ -3,7 +3,7 @@ import { useState, useMemo } from 'react';
 import styles from './GlassCalendar.module.css';
 
 interface GlassCalendarProps {
-  memoryDates: string[]; // e.g., ["Oct 15, 2026", "Oct 18, 2026"]
+  memoryDates: string[]; // e.g., ["2026-09-18", "2026-09-23"]
   onSelectDate: (date: string | null) => void;
   selectedDate: string | null;
 }
@@ -39,10 +39,7 @@ export default function GlassCalendar({ memoryDates, onSelectDate, selectedDate 
     }
   };
 
-  const handleDayClick = (day: number) => {
-    const formattedDate = `${MONTHS[currentMonth]} ${day}, ${currentYear}`;
-    
-    // Check if the user is clicking the already selected date, if so, clear it
+  const handleDayClick = (formattedDate: string) => {
     if (selectedDate === formattedDate) {
       onSelectDate(null);
     } else {
@@ -71,11 +68,8 @@ export default function GlassCalendar({ memoryDates, onSelectDate, selectedDate 
         
         {Array.from({ length: daysInMonth }).map((_, index) => {
           const day = index + 1;
-          const formattedDate = `${MONTHS[currentMonth]} ${day}, ${currentYear}`;
+          const formattedDate = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
           
-          // Next.js doesn't natively parse "Oct 15, 2026" easily if there's no zero padding,
-          // so we check if this specific string exists in the memory array.
-          // Note: ensure memories.json dates match this exact format.
           const hasMemory = memoryDates.includes(formattedDate);
           const isSelected = selectedDate === formattedDate;
 
@@ -87,7 +81,7 @@ export default function GlassCalendar({ memoryDates, onSelectDate, selectedDate 
                 ${hasMemory ? styles.hasMemory : ''} 
                 ${isSelected ? styles.selected : ''}
               `}
-              onClick={() => handleDayClick(day)}
+              onClick={() => handleDayClick(formattedDate)}
             >
               <span>{day}</span>
               {hasMemory && <div className={styles.dot} />}

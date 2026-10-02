@@ -1,21 +1,29 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './page.module.css';
 import SplashScreen from '@/components/SplashScreen';
 import GlassCalendar from '@/components/GlassCalendar';
 import data from '../../data/memories.json';
 
+interface Memory {
+  id: string;
+  date: string;
+  title: string;
+  type: string;
+  description?: string;
+  mediaUrl?: string;
+}
+
 export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  // Extract all unique dates from memories for the calendar dots
-  const memoryDates = Array.from(new Set(data.memories.map(m => m.date)));
+  const memories: Memory[] = data as Memory[];
+  const memoryDates = Array.from(new Set(memories.map(m => m.date)));
 
-  // Filter memories based on selected date
   const displayedMemories = selectedDate 
-    ? data.memories.filter(m => m.date === selectedDate)
-    : data.memories;
+    ? memories.filter(m => m.date === selectedDate)
+    : memories;
 
   return (
     <>
@@ -35,7 +43,7 @@ export default function Home() {
               <h2>Memories of Us ❤️</h2>
               <p>Growing together, one day at a time.</p>
               <div className={styles.stats}>
-                <div className={styles.stat}>✨ {data.memories.length} Beautiful Memories</div>
+                <div className={styles.stat}>✨ {memories.length} Beautiful Memories</div>
                 <div className={styles.stat}>📸 Infinite Photos</div>
               </div>
             </div>
@@ -68,10 +76,10 @@ export default function Home() {
                   <article key={memory.id} className={styles.memoryCard}>
                     <div className={styles.dateBadge}>{memory.date}</div>
                     <h4>{memory.title}</h4>
-                    <p>{memory.description}</p>
-                    {memory.imageUrl && (
+                    {memory.description && <p>{memory.description}</p>}
+                    {memory.mediaUrl && (
                       <img 
-                        src={memory.imageUrl} 
+                        src={memory.mediaUrl} 
                         alt={memory.title} 
                         className={styles.memoryImage} 
                         loading="lazy"
