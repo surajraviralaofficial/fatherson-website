@@ -12,24 +12,27 @@ interface Memory {
   type: string;
   description?: string;
   mediaUrl?: string;
+  isFavorite?: boolean;
 }
 
 export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   
-  // Toggles between timeline and gallery
-  const [viewMode, setViewMode] = useState<'timeline' | 'gallery'>('timeline');
+  // Toggles between timeline, gallery, and favorites
+  const [viewMode, setViewMode] = useState<'timeline' | 'gallery' | 'favorites'>('timeline');
   
   // Controls the full screen modal
   const [activeMemory, setActiveMemory] = useState<Memory | null>(null);
 
   const memories: Memory[] = data as Memory[];
-  const memoryDates = Array.from(new Set(memories.map(m => m.date)));
+
+  const baseMemories = viewMode === 'favorites' ? memories.filter(m => m.isFavorite) : memories;
+  const memoryDates = Array.from(new Set(baseMemories.map(m => m.date)));
 
   const displayedMemories = selectedDate 
-    ? memories.filter(m => m.date === selectedDate)
-    : memories;
+    ? baseMemories.filter(m => m.date === selectedDate)
+    : baseMemories;
 
   const photosOnly = memories.filter(m => m.mediaUrl);
 
@@ -57,21 +60,28 @@ export default function Home() {
                   className={`${styles.statBtn} ${viewMode === 'timeline' ? styles.activeStat : ''}`}
                   onClick={() => setViewMode('timeline')}
                 >
-                  ✨ {memories.length} Beautiful Memories
+                  📅 {memories.length} Timeline
                 </button>
                 
+                <button 
+                  className={`${styles.statBtn} ${viewMode === 'favorites' ? styles.activeStat : ''}`}
+                  onClick={() => setViewMode('favorites')}
+                >
+                  ✨ {memories.filter(m => m.isFavorite).length} Beautiful Memories
+                </button>
+
                 <button 
                   className={`${styles.statBtn} ${viewMode === 'gallery' ? styles.activeStat : ''}`}
                   onClick={() => setViewMode('gallery')}
                 >
-                  📸 Infinite Photos
+                  📸 Photos
                 </button>
               </div>
             </div>
           </section>
 
           {/* Conditional Rendering based on View Mode */}
-          {viewMode === 'timeline' ? (
+          {(viewMode === 'timeline' || viewMode === 'favorites') ? (
             <section className={styles.timelineSection}>
               {/* Left Column: Glass Calendar Filter */}
               <div className={styles.stickyCalendar}>
@@ -85,12 +95,12 @@ export default function Home() {
               {/* Right Column: Filtered Timeline */}
               <div className={styles.timeline}>
                 <div className={styles.timelineHeader}>
-                  <h3>{selectedDate ? `Memories from ${selectedDate}` : 'Our Journey'}</h3>
+                  <h3>{selectedDate ? `Memories from ${selectedDate}` : viewMode === 'favorites' ? 'Favorite Memories' : 'Our Journey'}</h3>
                 </div>
                 
                 {displayedMemories.length === 0 ? (
                   <div className={styles.emptyState}>
-                    No memories found for this date.
+                    No memories found.
                   </div>
                 ) : (
                   displayedMemories.map((memory) => (
@@ -100,7 +110,7 @@ export default function Home() {
                       onClick={() => setActiveMemory(memory)}
                     >
                       <div className={styles.dateBadge}>{memory.date}</div>
-                      <h4>{memory.title}</h4>
+                      <h4>{memory.title} {memory.isFavorite && '🌟'}</h4>
                       {memory.description && <p>{memory.description}</p>}
                       {memory.mediaUrl && (
                         <img 
