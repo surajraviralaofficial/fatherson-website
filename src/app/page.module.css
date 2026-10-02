@@ -173,10 +173,33 @@
 }
 
 @media (max-width: 768px) {
+  .header { padding: 40px 5%; }
+  .header h1 { font-size: 2.5rem; }
+  .header p { font-size: 1.1rem; }
+  
   .heroBanner { height: 250px; }
-  .header h1 { font-size: 3rem; }
-  .stats { flex-direction: column; gap: 15px; }
+  .heroContent { padding: 25px; }
+  .heroContent h2 { font-size: 2rem; }
+  
+  .stats { flex-direction: column; gap: 15px; margin-top: 20px; }
+  .stat { font-size: 1rem; padding: 12px 20px; }
+  
   .timeline { padding-left: 20px; }
-  .memoryCard { padding: 25px; }
-  .memoryCard::before { left: -28px; }
+  .timelineHeader { margin-bottom: 30px; }
+  .timelineHeader h3 { font-size: 2rem; }
+  
+  .memoryCard { padding: 20px; border-radius: 16px; margin-bottom: 40px; }
+  .memoryCard h4 { font-size: 1.5rem; margin-bottom: 10px; }
+  .memoryCard p { font-size: 1rem; margin-bottom: 15px; }
+  .memoryCard::before { left: -28px; width: 16px; height: 16px; top: 25px; }
+}
+
+@media (max-width: 480px) {
+  .header h1 { font-size: 2rem; }
+  .heroBanner { height: 200px; }
+  .heroContent h2 { font-size: 1.6rem; }
+  .timelineHeader h3 { font-size: 1.6rem; }
+  .memoryCard h4 { font-size: 1.3rem; }
+  .memoryCard::before { left: -26px; }
+  .timeline { padding-left: 15px; }
 }

@@ -395,3 +395,53 @@
   color: #fbbf24;
   font-style: normal;
 }
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+  }
+  .loaderContainer {
+    padding-top: 50px;
+  }
+  .characters {
+    top: -65px;
+    gap: 15px;
+  }
+  .dad {
+    transform: scale(0.9);
+  }
+  .kidOnBike {
+    transform: scale(0.55) translateY(-5px);
+    margin-left: 10px;
+  }
+  .quoteContainer {
+    font-size: 1rem;
+    padding: 0 15px;
+    margin-top: 40px;
+  }
+  .quoteContainer span {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+  }
+  .characters {
+    gap: 5px;
+    top: -55px;
+  }
+  .dad {
+    transform: scale(0.7);
+  }
+  .kidOnBike {
+    transform: scale(0.4) translateY(-8px);
+    margin-left: 5px;
+  }
+  .quoteContainer {
+    font-size: 0.9rem;
+  }
+}
