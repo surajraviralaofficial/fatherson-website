@@ -1,13 +1,26 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: var(--bg-color);
+  background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), visibility 1s;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.2s;
+  overflow: hidden;
+}
+
+.overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('https://www.transparenttextures.com/patterns/stardust.png');
+  opacity: 0.1;
+  pointer-events: none;
 }
 
 .overlay.hidden {
@@ -16,69 +29,101 @@
 }
 
 .title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin-bottom: 60px;
-  background: var(--accent-gradient);
+  font-size: 4rem;
+  font-weight: 300;
+  margin-bottom: 80px;
+  letter-spacing: 4px;
+  color: #fff;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.title::after {
+  content: 'Father & Son';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, transparent, #fbbf24, transparent);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: -1px;
+  animation: shine 3s infinite linear;
+  background-size: 200% auto;
+}
+
+@keyframes shine {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
 
 .loaderContainer {
   width: 90%;
-  max-width: 600px;
+  max-width: 700px;
   position: relative;
-  padding-top: 50px;
+  padding-top: 60px;
 }
 
 .track {
   width: 100%;
-  height: 6px;
-  background: #f3f4f6;
-  border-radius: 20px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
   position: relative;
 }
 
 .bar {
   height: 100%;
-  background: var(--accent-gradient);
-  border-radius: 20px;
+  background: #fbbf24;
   width: 0%;
   transition: width 0.1s linear;
-  box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
+  position: relative;
+  box-shadow: 0 0 15px #fbbf24, 0 0 30px #fbbf24;
+}
+
+.bar::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(to left, #fff, transparent);
+  border-radius: 5px;
+  filter: blur(2px);
 }
 
 .characters {
   position: absolute;
-  top: -45px;
+  top: -55px;
   left: 0;
   transform: translateX(-100%);
   display: flex;
-  gap: 20px;
-  font-size: 32px;
+  align-items: flex-end;
+  gap: 25px;
   transition: left 0.1s linear;
 }
 
-.kid, .dad {
-  display: inline-block;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+.silhouette {
+  fill: #fbbf24;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
 }
 
 .kid {
-  animation: runKid 0.5s infinite alternate cubic-bezier(0.4, 0, 0.6, 1);
+  width: 35px;
+  height: 35px;
+  animation: runKid 0.4s infinite alternate cubic-bezier(0.4, 0, 0.6, 1);
 }
 
 .dad {
-  animation: runDad 0.5s infinite alternate cubic-bezier(0.4, 0, 0.6, 1) 0.1s;
+  width: 50px;
+  height: 50px;
+  animation: runDad 0.4s infinite alternate cubic-bezier(0.4, 0, 0.6, 1) 0.1s;
 }
 
 @keyframes runKid {
-  0% { transform: translateY(0) rotate(5deg); }
-  100% { transform: translateY(-12px) rotate(-5deg); }
+  0% { transform: translateY(0) rotate(5deg) scaleX(1); }
+  100% { transform: translateY(-10px) rotate(-10deg) scaleX(1.05); }
 }
 
 @keyframes runDad {
-  0% { transform: translateY(0) rotate(2deg); }
-  100% { transform: translateY(-8px) rotate(-2deg); }
+  0% { transform: translateY(0) rotate(8deg); }
+  100% { transform: translateY(-12px) rotate(-5deg); }
 }
