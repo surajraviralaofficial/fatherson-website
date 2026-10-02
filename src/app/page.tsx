@@ -20,7 +20,7 @@ export default function Home() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   
   // Toggles between timeline, gallery, and favorites
-  const [viewMode, setViewMode] = useState<'timeline' | 'gallery' | 'favorites'>('favorites');
+  const [viewMode, setViewMode] = useState<'timeline' | 'gallery' | 'favorites'>('timeline');
   
   // Controls the full screen modal
   const [activeMemory, setActiveMemory] = useState<Memory | null>(null);
@@ -56,6 +56,13 @@ export default function Home() {
               
               {/* Interactive View Toggles */}
               <div className={styles.stats}>
+                <button 
+                  className={`${styles.statBtn} ${viewMode === 'timeline' ? styles.activeStat : ''}`}
+                  onClick={() => setViewMode('timeline')}
+                >
+                  📅 Home
+                </button>
+
                 <button 
                   className={`${styles.statBtn} ${viewMode === 'favorites' ? styles.activeStat : ''}`}
                   onClick={() => setViewMode('favorites')}
