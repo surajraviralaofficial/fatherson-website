@@ -12,6 +12,7 @@ interface Memory {
   type: string;
   description?: string;
   mediaUrl?: string;
+  mediaUrls?: string[];
   isFavorite?: boolean;
 }
 
@@ -34,7 +35,19 @@ export default function Home() {
     ? baseMemories.filter(m => m.date === selectedDate)
     : baseMemories;
 
-  const photosOnly = memories.filter(m => m.mediaUrl);
+  const photosOnly = memories.filter(m => m.mediaUrl || (m.mediaUrls && m.mediaUrls.length > 0));
+
+  const galleryItems = photosOnly.flatMap(memory => {
+    if (memory.mediaUrls && memory.mediaUrls.length > 0) {
+      return memory.mediaUrls.map((url, idx) => ({ 
+        ...memory, 
+        mediaUrl: url, 
+        mediaUrls: undefined, 
+        uniqueId: `${memory.id}-${idx}` 
+      }));
+    }
+    return [{ ...memory, uniqueId: memory.id }];
+  });
 
   return (
     <>
@@ -112,13 +125,26 @@ export default function Home() {
                       <div className={styles.dateBadge}>{memory.date}</div>
                       <h4>{memory.title} {memory.isFavorite && '🌟'}</h4>
                       {memory.description && <p>{memory.description}</p>}
-                      {memory.mediaUrl && (
+                      {memory.mediaUrl && !memory.mediaUrls && (
                         <img 
                           src={memory.mediaUrl} 
                           alt={memory.title} 
                           className={styles.memoryImage} 
                           loading="lazy"
                         />
+                      )}
+                      {memory.mediaUrls && memory.mediaUrls.length > 0 && (
+                        <div className={styles.imageGrid}>
+                          {memory.mediaUrls.map((url, idx) => (
+                            <img 
+                              key={idx}
+                              src={url} 
+                              alt={`${memory.title} ${idx + 1}`} 
+                              className={styles.memoryImage} 
+                              loading="lazy"
+                            />
+                          ))}
+                        </div>
                       )}
                     </article>
                   ))
@@ -132,16 +158,16 @@ export default function Home() {
                   <h3>Photo Gallery</h3>
                </div>
                <div className={styles.galleryGrid}>
-                 {photosOnly.map(memory => (
+                 {galleryItems.map(item => (
                    <div 
-                     key={memory.id} 
+                     key={item.uniqueId} 
                      className={styles.galleryItem}
-                     onClick={() => setActiveMemory(memory)}
+                     onClick={() => setActiveMemory(item)}
                    >
-                     <img src={memory.mediaUrl} alt={memory.title} loading="lazy" />
+                     <img src={item.mediaUrl} alt={item.title} loading="lazy" />
                      <div className={styles.galleryOverlay}>
-                       <span className={styles.galleryDate}>{memory.date}</span>
-                       <span className={styles.galleryTitle}>{memory.title}</span>
+                       <span className={styles.galleryDate}>{item.date}</span>
+                       <span className={styles.galleryTitle}>{item.title}</span>
                      </div>
                    </div>
                  ))}
@@ -164,12 +190,25 @@ export default function Home() {
             <div className={styles.modalDate}>{activeMemory.date}</div>
             <h2 className={styles.modalTitle}>{activeMemory.title}</h2>
             
-            {activeMemory.mediaUrl && (
+            {activeMemory.mediaUrl && !activeMemory.mediaUrls && (
               <img 
                 src={activeMemory.mediaUrl} 
                 className={styles.modalImage} 
                 alt={activeMemory.title}
               />
+            )}
+
+            {activeMemory.mediaUrls && activeMemory.mediaUrls.length > 0 && (
+              <div className={styles.modalImageGrid}>
+                 {activeMemory.mediaUrls.map((url, idx) => (
+                    <img 
+                      key={idx}
+                      src={url} 
+                      className={styles.modalImage} 
+                      alt={`${activeMemory.title} ${idx + 1}`}
+                    />
+                 ))}
+              </div>
             )}
             
             {activeMemory.description && (

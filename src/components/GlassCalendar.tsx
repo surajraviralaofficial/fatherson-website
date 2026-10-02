@@ -11,8 +11,8 @@ interface GlassCalendarProps {
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 export default function GlassCalendar({ memoryDates, onSelectDate, selectedDate }: GlassCalendarProps) {
-  // Parse latest memory to set initial month, or default to current
-  const initialDate = memoryDates.length > 0 ? new Date(memoryDates[0]) : new Date();
+  // Always default to the current real-world date
+  const initialDate = new Date();
   
   const [currentMonth, setCurrentMonth] = useState(initialDate.getMonth());
   const [currentYear, setCurrentYear] = useState(initialDate.getFullYear());
