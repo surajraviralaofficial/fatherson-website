@@ -102,7 +102,7 @@
 }
 
 /* =========================================
-   REALISTIC CSS RUNNING FIGURE
+   REALISTIC CSS RUNNING FIGURE (FATHER)
    ========================================= */
 
 .figure {
@@ -114,10 +114,6 @@
 
 .dad {
   transform: scale(1.1);
-}
-
-.kid {
-  transform: scale(0.55); /* Made kid smaller so father looks like an adult */
 }
 
 /* Base body parts */
@@ -157,11 +153,11 @@
   height: 16px;
   top: 15px;
   left: 16px;
-  z-index: 4; /* Right arm in front */
+  z-index: 4; 
 }
 .armLeft {
-  z-index: 1; /* Left arm behind */
-  filter: brightness(0.7); /* darker for depth */
+  z-index: 1; 
+  filter: brightness(0.7); 
 }
 
 .lowerArm {
@@ -173,7 +169,7 @@
   left: 0;
   transform-origin: top center;
   border-radius: 4px;
-  transform: rotate(-90deg); /* Elbows constantly bent forward */
+  transform: rotate(-90deg);
 }
 
 .leg {
@@ -198,8 +194,7 @@
   border-radius: 4px;
 }
 
-/* ANIMATIONS: Slowed down and broader steps */
-/* 0.8s duration for slower, broader stride */
+/* FATHER ANIMATIONS */
 .armRight { animation: swingArm 0.8s infinite ease-in-out; }
 .armLeft { animation: swingArm 0.8s infinite ease-in-out -0.4s; }
 
@@ -208,50 +203,152 @@
 .lowerLegRight { animation: swingLowerLeg 0.8s infinite ease-in-out; }
 .lowerLegLeft { animation: swingLowerLeg 0.8s infinite ease-in-out -0.4s; }
 
-/* Torso bounces slightly */
 .bodyWrapper {
   animation: bounceTorso 0.4s infinite alternate ease-in-out;
   transform-origin: bottom center;
 }
 
-/* Arm Swings */
 @keyframes swingArm {
-  0% { transform: rotate(-70deg); } /* Swings Forward */
-  50% { transform: rotate(50deg); } /* Swings Backward */
+  0% { transform: rotate(-70deg); } 
+  50% { transform: rotate(50deg); } 
   100% { transform: rotate(-70deg); }
 }
 
-/* Leg Swings */
 @keyframes swingLeg {
-  0% { transform: rotate(50deg); } /* Swings Backward */
-  50% { transform: rotate(-60deg); } /* Swings Forward */
+  0% { transform: rotate(50deg); } 
+  50% { transform: rotate(-60deg); } 
   100% { transform: rotate(50deg); }
 }
 
-/* Lower Leg Bends (knee joint) */
 @keyframes swingLowerLeg {
-  0% { transform: rotate(90deg); } /* Bent knee when leg is back */
-  50% { transform: rotate(0deg); } /* Straight leg when leg is forward */
+  0% { transform: rotate(90deg); } 
+  50% { transform: rotate(0deg); } 
   100% { transform: rotate(90deg); }
 }
 
-/* Torso Bounce & Forward Lean */
 @keyframes bounceTorso {
   from { transform: translateY(0) rotate(15deg); }
   to { transform: translateY(-8px) rotate(15deg); }
 }
 
-/* Speed variations for Kid */
-.kid .armRight, .kid .armLeft, 
-.kid .legRight, .kid .legLeft, 
-.kid .lowerLegRight, .kid .lowerLegLeft {
-  animation-duration: 0.6s;
-}
-.kid .bodyWrapper {
-  animation-duration: 0.3s;
+
+/* =========================================
+   KID ON BICYCLE
+   ========================================= */
+
+.kidOnBike {
+  transform: scale(0.65) translateY(-5px);
+  margin-left: 20px;
 }
 
-/* Quote Section */
+/* Kid's posture */
+.kidOnBike .bodyWrapper {
+  animation: none;
+  transform: translateY(12px) rotate(25deg); /* Sitting on bike and leaning forward */
+}
+
+/* Kid's arms holding handlebars */
+.kidOnBike .arm {
+  animation: none;
+  transform: rotate(-65deg);
+}
+.kidOnBike .lowerArm {
+  animation: none;
+  transform: rotate(-10deg);
+}
+
+/* Kid's pedaling legs */
+.kidOnBike .legRight { animation: pedalLeg 0.5s infinite linear; }
+.kidOnBike .legLeft { animation: pedalLeg 0.5s infinite linear -0.25s; }
+.kidOnBike .lowerLegRight { animation: pedalLowerLeg 0.5s infinite linear; }
+.kidOnBike .lowerLegLeft { animation: pedalLowerLeg 0.5s infinite linear -0.25s; }
+
+@keyframes pedalLeg {
+  0% { transform: rotate(10deg); }
+  50% { transform: rotate(80deg); }
+  100% { transform: rotate(10deg); }
+}
+@keyframes pedalLowerLeg {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(70deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* The Bicycle */
+.bike {
+  position: absolute;
+  bottom: 0px;
+  left: -15px;
+  width: 70px;
+  height: 40px;
+  z-index: 5;
+}
+
+.wheel {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 3px solid #fbbf24;
+  border-radius: 50%;
+  bottom: 0;
+  animation: spinWheel 0.5s infinite linear;
+}
+.wheelFront { left: 45px; }
+.wheelBack { left: -5px; }
+
+.spoke {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #fbbf24;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.spoke2 { transform: translateY(-50%) rotate(90deg); }
+
+.frame1 {
+  position: absolute;
+  width: 40px;
+  height: 3px;
+  background: #fbbf24;
+  bottom: 12px;
+  left: 5px;
+  transform: rotate(-15deg);
+  border-radius: 2px;
+}
+
+.frame2 {
+  position: absolute;
+  width: 32px;
+  height: 3px;
+  background: #fbbf24;
+  bottom: 16px;
+  left: 0px;
+  transform: rotate(50deg);
+  border-radius: 2px;
+}
+
+.handlebar {
+  position: absolute;
+  width: 3px;
+  height: 22px;
+  background: #fbbf24;
+  bottom: 14px;
+  left: 55px;
+  transform: rotate(20deg);
+  border-radius: 2px;
+}
+
+@keyframes spinWheel {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* =========================================
+   QUOTES
+   ========================================= */
+
 .quoteContainer {
   margin-top: 60px;
   text-align: center;
