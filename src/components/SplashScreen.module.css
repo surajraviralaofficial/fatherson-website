@@ -59,7 +59,7 @@
   width: 90%;
   max-width: 700px;
   position: relative;
-  padding-top: 60px;
+  padding-top: 80px;
 }
 
 .track {
@@ -92,38 +92,193 @@
 
 .characters {
   position: absolute;
-  top: -55px;
+  top: -75px;
   left: 0;
   transform: translateX(-100%);
   display: flex;
   align-items: flex-end;
-  gap: 25px;
+  gap: 30px;
   transition: left 0.1s linear;
 }
 
-.silhouette {
-  fill: #fbbf24;
+/* =========================================
+   REALISTIC CSS RUNNING FIGURE
+   ========================================= */
+
+.figure {
+  position: relative;
+  width: 40px;
+  height: 70px;
   filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
 }
 
-.kid {
-  width: 35px;
-  height: 35px;
-  animation: runKid 0.4s infinite alternate cubic-bezier(0.4, 0, 0.6, 1);
-}
-
 .dad {
-  width: 50px;
-  height: 50px;
-  animation: runDad 0.4s infinite alternate cubic-bezier(0.4, 0, 0.6, 1) 0.1s;
+  transform: scale(1.1);
 }
 
-@keyframes runKid {
-  0% { transform: translateY(0) rotate(5deg) scaleX(1); }
-  100% { transform: translateY(-10px) rotate(-10deg) scaleX(1.05); }
+.kid {
+  transform: scale(0.75);
 }
 
-@keyframes runDad {
-  0% { transform: translateY(0) rotate(8deg); }
-  100% { transform: translateY(-12px) rotate(-5deg); }
+/* Base body parts */
+.head {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fbbf24;
+  position: absolute;
+  left: 13px;
+  top: 0;
+  z-index: 3;
+}
+
+.torso {
+  width: 12px;
+  height: 26px;
+  background: #fbbf24;
+  position: absolute;
+  left: 14px;
+  top: 13px;
+  border-radius: 6px;
+  z-index: 2;
+  transform-origin: bottom center;
+}
+
+/* Limbs */
+.arm, .leg {
+  position: absolute;
+  width: 8px;
+  background: #fbbf24;
+  transform-origin: top center;
+  border-radius: 4px;
+}
+
+.arm {
+  height: 16px;
+  top: 15px;
+  left: 16px;
+  z-index: 4; /* Right arm in front */
+}
+.armLeft {
+  z-index: 1; /* Left arm behind */
+  filter: brightness(0.7); /* darker for depth */
+}
+
+.lowerArm {
+  position: absolute;
+  width: 8px;
+  height: 16px;
+  background: inherit;
+  top: 12px;
+  left: 0;
+  transform-origin: top center;
+  border-radius: 4px;
+}
+
+.leg {
+  height: 18px;
+  top: 36px;
+  left: 16px;
+  z-index: 3;
+}
+.legLeft {
+  z-index: 1;
+  filter: brightness(0.7);
+}
+
+.lowerLeg {
+  position: absolute;
+  width: 8px;
+  height: 18px;
+  background: inherit;
+  top: 14px;
+  left: 0;
+  transform-origin: top center;
+  border-radius: 4px;
+}
+
+/* ANIMATIONS */
+/* We define variables to make them easily syncable */
+
+.armRight { animation: swingArmRight 0.6s infinite linear; }
+.armLeft { animation: swingArmLeft 0.6s infinite linear; }
+.lowerArmRight { animation: swingLowerArmRight 0.6s infinite linear; }
+.lowerArmLeft { animation: swingLowerArmLeft 0.6s infinite linear; }
+
+.legRight { animation: swingLegRight 0.6s infinite linear; }
+.legLeft { animation: swingLegLeft 0.6s infinite linear; }
+.lowerLegRight { animation: swingLowerLegRight 0.6s infinite linear; }
+.lowerLegLeft { animation: swingLowerLegLeft 0.6s infinite linear; }
+
+/* Torso bounces slightly */
+.bodyWrapper {
+  animation: bounceTorso 0.3s infinite alternate ease-in-out;
+  transform-origin: bottom center;
+}
+
+/* Arm Swings */
+@keyframes swingArmRight {
+  0% { transform: rotate(-50deg); }
+  50% { transform: rotate(60deg); }
+  100% { transform: rotate(-50deg); }
+}
+@keyframes swingArmLeft {
+  0% { transform: rotate(60deg); }
+  50% { transform: rotate(-50deg); }
+  100% { transform: rotate(60deg); }
+}
+
+/* Lower Arm Bends */
+@keyframes swingLowerArmRight {
+  0% { transform: rotate(110deg); }
+  50% { transform: rotate(50deg); }
+  100% { transform: rotate(110deg); }
+}
+@keyframes swingLowerArmLeft {
+  0% { transform: rotate(50deg); }
+  50% { transform: rotate(110deg); }
+  100% { transform: rotate(50deg); }
+}
+
+/* Leg Swings */
+@keyframes swingLegRight {
+  0% { transform: rotate(60deg); }
+  50% { transform: rotate(-50deg); }
+  100% { transform: rotate(60deg); }
+}
+@keyframes swingLegLeft {
+  0% { transform: rotate(-50deg); }
+  50% { transform: rotate(60deg); }
+  100% { transform: rotate(-50deg); }
+}
+
+/* Lower Leg Bends (knee joint) */
+@keyframes swingLowerLegRight {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+@keyframes swingLowerLegLeft {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Torso Bounce & Forward Lean */
+@keyframes bounceTorso {
+  from { transform: translateY(0) rotate(10deg); }
+  to { transform: translateY(-6px) rotate(10deg); }
+}
+
+/* Speed variations for Kid */
+.kid .armRight, .kid .armLeft, .kid .lowerArmRight, .kid .lowerArmLeft,
+.kid .legRight, .kid .legLeft, .kid .lowerLegRight, .kid .lowerLegLeft {
+  animation-duration: 0.4s;
+}
+.kid .bodyWrapper {
+  animation-duration: 0.2s;
 }
