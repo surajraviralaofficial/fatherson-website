@@ -51,7 +51,7 @@
 
 .heroBanner {
   height: 500px;
-  background: url('/media/image copy 4.png') center top / cover;
+  background: url('/media/image copy 4.png') center 25% / cover;
   position: relative;
 }
 
