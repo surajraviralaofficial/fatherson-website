@@ -2,6 +2,15 @@
 import { useEffect, useState } from 'react';
 import styles from './SplashScreen.module.css';
 
+const QUOTES = [
+  { text: "A father is someone you look up to, no matter how tall you grow.", author: "Unknown" },
+  { text: "A son's first hero, a daughter's first love.", author: "Unknown" },
+  { text: "The imprint of a father remains forever on the life of the child.", author: "Roy Lessin" },
+  { text: "To the world you are a dad. To our family, you are the world.", author: "Unknown" },
+  { text: "No matter how much time passes, you will always be my little boy.", author: "Unknown" },
+  { text: "We are growing together, learning from each other, one beautiful day at a time.", author: "Unknown" }
+];
+
 // A beautifully constructed CSS-only kinematically animated human figure!
 const AnimatedRunningFigure = ({ className }: { className: string }) => (
   <div className={`${styles.figure} ${className}`}>
@@ -11,12 +20,12 @@ const AnimatedRunningFigure = ({ className }: { className: string }) => (
       
       {/* Left Arm (Behind) */}
       <div className={`${styles.arm} ${styles.armLeft}`}>
-        <div className={`${styles.lowerArm} ${styles.lowerArmLeft}`}></div>
+        <div className={styles.lowerArm}></div>
       </div>
       
       {/* Right Arm (Front) */}
       <div className={`${styles.arm} ${styles.armRight}`}>
-        <div className={`${styles.lowerArm} ${styles.lowerArmRight}`}></div>
+        <div className={styles.lowerArm}></div>
       </div>
       
       {/* Left Leg (Behind) */}
@@ -35,9 +44,14 @@ const AnimatedRunningFigure = ({ className }: { className: string }) => (
 export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
   const [progress, setProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  const [quote, setQuote] = useState(QUOTES[0]);
 
   useEffect(() => {
-    const duration = 3000; // 3 seconds total loading
+    // Pick a random quote on mount
+    const randomQuote = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+    setQuote(randomQuote);
+
+    const duration = 4000; // Increased to 4 seconds to read the quote
     const interval = 20;
     const steps = duration / interval;
     const increment = 100 / steps;
@@ -71,6 +85,10 @@ export default function SplashScreen({ onFinish }: { onFinish: () => void }) {
           </div>
           <div className={styles.bar} style={{ width: `${progress}%` }}></div>
         </div>
+      </div>
+      <div className={styles.quoteContainer}>
+        "{quote.text}"
+        <span>— {quote.author}</span>
       </div>
     </div>
   );

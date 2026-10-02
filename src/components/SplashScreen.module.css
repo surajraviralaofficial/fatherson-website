@@ -117,7 +117,7 @@
 }
 
 .kid {
-  transform: scale(0.75);
+  transform: scale(0.55); /* Made kid smaller so father looks like an adult */
 }
 
 /* Base body parts */
@@ -173,6 +173,7 @@
   left: 0;
   transform-origin: top center;
   border-radius: 4px;
+  transform: rotate(-90deg); /* Elbows constantly bent forward */
 }
 
 .leg {
@@ -197,88 +198,80 @@
   border-radius: 4px;
 }
 
-/* ANIMATIONS */
-/* We define variables to make them easily syncable */
+/* ANIMATIONS: Slowed down and broader steps */
+/* 0.8s duration for slower, broader stride */
+.armRight { animation: swingArm 0.8s infinite ease-in-out; }
+.armLeft { animation: swingArm 0.8s infinite ease-in-out -0.4s; }
 
-.armRight { animation: swingArmRight 0.6s infinite linear; }
-.armLeft { animation: swingArmLeft 0.6s infinite linear; }
-.lowerArmRight { animation: swingLowerArmRight 0.6s infinite linear; }
-.lowerArmLeft { animation: swingLowerArmLeft 0.6s infinite linear; }
-
-.legRight { animation: swingLegRight 0.6s infinite linear; }
-.legLeft { animation: swingLegLeft 0.6s infinite linear; }
-.lowerLegRight { animation: swingLowerLegRight 0.6s infinite linear; }
-.lowerLegLeft { animation: swingLowerLegLeft 0.6s infinite linear; }
+.legRight { animation: swingLeg 0.8s infinite ease-in-out; }
+.legLeft { animation: swingLeg 0.8s infinite ease-in-out -0.4s; }
+.lowerLegRight { animation: swingLowerLeg 0.8s infinite ease-in-out; }
+.lowerLegLeft { animation: swingLowerLeg 0.8s infinite ease-in-out -0.4s; }
 
 /* Torso bounces slightly */
 .bodyWrapper {
-  animation: bounceTorso 0.3s infinite alternate ease-in-out;
+  animation: bounceTorso 0.4s infinite alternate ease-in-out;
   transform-origin: bottom center;
 }
 
 /* Arm Swings */
-@keyframes swingArmRight {
-  0% { transform: rotate(-50deg); }
-  50% { transform: rotate(60deg); }
-  100% { transform: rotate(-50deg); }
-}
-@keyframes swingArmLeft {
-  0% { transform: rotate(60deg); }
-  50% { transform: rotate(-50deg); }
-  100% { transform: rotate(60deg); }
-}
-
-/* Lower Arm Bends */
-@keyframes swingLowerArmRight {
-  0% { transform: rotate(110deg); }
-  50% { transform: rotate(50deg); }
-  100% { transform: rotate(110deg); }
-}
-@keyframes swingLowerArmLeft {
-  0% { transform: rotate(50deg); }
-  50% { transform: rotate(110deg); }
-  100% { transform: rotate(50deg); }
+@keyframes swingArm {
+  0% { transform: rotate(-70deg); } /* Swings Forward */
+  50% { transform: rotate(50deg); } /* Swings Backward */
+  100% { transform: rotate(-70deg); }
 }
 
 /* Leg Swings */
-@keyframes swingLegRight {
-  0% { transform: rotate(60deg); }
-  50% { transform: rotate(-50deg); }
-  100% { transform: rotate(60deg); }
-}
-@keyframes swingLegLeft {
-  0% { transform: rotate(-50deg); }
-  50% { transform: rotate(60deg); }
-  100% { transform: rotate(-50deg); }
+@keyframes swingLeg {
+  0% { transform: rotate(50deg); } /* Swings Backward */
+  50% { transform: rotate(-60deg); } /* Swings Forward */
+  100% { transform: rotate(50deg); }
 }
 
 /* Lower Leg Bends (knee joint) */
-@keyframes swingLowerLegRight {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(90deg); }
-  50% { transform: rotate(0deg); }
-  75% { transform: rotate(10deg); }
-  100% { transform: rotate(0deg); }
-}
-@keyframes swingLowerLegLeft {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(10deg); }
-  50% { transform: rotate(0deg); }
-  75% { transform: rotate(90deg); }
-  100% { transform: rotate(0deg); }
+@keyframes swingLowerLeg {
+  0% { transform: rotate(90deg); } /* Bent knee when leg is back */
+  50% { transform: rotate(0deg); } /* Straight leg when leg is forward */
+  100% { transform: rotate(90deg); }
 }
 
 /* Torso Bounce & Forward Lean */
 @keyframes bounceTorso {
-  from { transform: translateY(0) rotate(10deg); }
-  to { transform: translateY(-6px) rotate(10deg); }
+  from { transform: translateY(0) rotate(15deg); }
+  to { transform: translateY(-8px) rotate(15deg); }
 }
 
 /* Speed variations for Kid */
-.kid .armRight, .kid .armLeft, .kid .lowerArmRight, .kid .lowerArmLeft,
-.kid .legRight, .kid .legLeft, .kid .lowerLegRight, .kid .lowerLegLeft {
-  animation-duration: 0.4s;
+.kid .armRight, .kid .armLeft, 
+.kid .legRight, .kid .legLeft, 
+.kid .lowerLegRight, .kid .lowerLegLeft {
+  animation-duration: 0.6s;
 }
 .kid .bodyWrapper {
-  animation-duration: 0.2s;
+  animation-duration: 0.3s;
+}
+
+/* Quote Section */
+.quoteContainer {
+  margin-top: 60px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 300;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 80px;
+  animation: fadeIn 2s ease-in-out;
+  letter-spacing: 0.5px;
+}
+
+.quoteContainer span {
+  display: block;
+  margin-top: 15px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fbbf24;
+  font-style: normal;
 }
