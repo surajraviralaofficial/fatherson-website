@@ -6,6 +6,8 @@
 .header {
   padding: 60px 5%;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .header h1 {
@@ -16,6 +18,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .header p {
@@ -30,26 +33,40 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .heroCard {
   width: 100%;
   border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-  margin-bottom: 80px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  margin-bottom: 40px;
   position: relative;
-  background: white;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
 }
 
 .heroBanner {
-  height: 400px;
-  background: url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1600&auto=format&fit=crop') center 30% / cover;
+  height: 500px;
+  background: url('/hero.jpg') center center / cover;
+  position: relative;
+}
+
+.heroBanner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #020617, transparent);
 }
 
 .heroContent {
   padding: 40px;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .heroContent h2 {
@@ -66,14 +83,31 @@
 }
 
 .stat {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
   padding: 15px 30px;
   border-radius: 20px;
   font-weight: 600;
   font-size: 1.1rem;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
   color: var(--accent);
+  backdrop-filter: blur(10px);
+}
+
+.timelineSection {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 900px) {
+  .timelineSection {
+    grid-template-columns: 350px 1fr;
+    align-items: start;
+  }
+  .stickyCalendar {
+    position: sticky;
+    top: 40px;
+  }
 }
 
 .timeline {
@@ -110,7 +144,7 @@
   border-radius: 24px;
   padding: 40px;
   margin-bottom: 50px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   position: relative;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
 }
@@ -125,12 +159,12 @@
   background: var(--accent);
   border-radius: 50%;
   border: 4px solid var(--bg-color);
-  box-shadow: 0 0 0 4px rgba(255, 126, 95, 0.2);
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
 }
 
 .memoryCard:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
 
 .dateBadge {
@@ -160,7 +194,7 @@
 .memoryImage {
   width: 100%;
   border-radius: 16px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
 }
 
 .contentReady {
@@ -170,6 +204,16 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--card-bg);
+  border-radius: 20px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  font-size: 1.2rem;
 }
 
 @media (max-width: 768px) {
