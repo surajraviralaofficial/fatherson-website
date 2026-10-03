@@ -30,7 +30,20 @@ export default function Home() {
   const openModal = (memory: Memory, startIndex: number = 0) => {
     setActiveMemory(memory);
     setCurrentImageIndex(startIndex);
+    // Push a state to the browser history so the back button works for the modal
+    window.history.pushState({ modalOpen: true }, '');
   };
+
+  // Listen for the browser/mobile back button
+  useEffect(() => {
+    const handlePopState = () => {
+      if (activeMemory) {
+        setActiveMemory(null);
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [activeMemory]);
 
   const memories: Memory[] = data as Memory[];
 
@@ -191,7 +204,14 @@ export default function Home() {
       {activeMemory && (
         <div className={styles.fullScreenModal}>
           <div className={styles.modalHeader}>
-            <button className={styles.backButton} onClick={() => setActiveMemory(null)}>
+            <button 
+              className={styles.backButton} 
+              onClick={() => {
+                setActiveMemory(null);
+                // Also go back in history to keep it clean
+                window.history.back();
+              }}
+            >
               ← Back to Timeline
             </button>
           </div>
