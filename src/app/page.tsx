@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import styles from './page.module.css';
 import SplashScreen from '@/components/SplashScreen';
 import GlassCalendar from '@/components/GlassCalendar';
-import data from '../../data/memories.json';
 
 interface Memory {
   id: string;
@@ -17,8 +16,17 @@ interface Memory {
 }
 
 export default function Home() {
+  const [memories, setMemories] = useState<Memory[]>([]);
   const [showSplash, setShowSplash] = useState(true);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+
+  // Fetch memories dynamically so they can be updated on Hostinger without rebuilding!
+  useEffect(() => {
+    fetch('/data/memories.json')
+      .then(res => res.json())
+      .then(data => setMemories(data))
+      .catch(err => console.error("Error loading memories:", err));
+  }, []);
   
   // Toggles between timeline, gallery, and favorites
   const [viewMode, setViewMode] = useState<'timeline' | 'gallery' | 'favorites'>('timeline');
@@ -44,8 +52,6 @@ export default function Home() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, [activeMemory]);
-
-  const memories: Memory[] = data as Memory[];
 
   const baseMemories = viewMode === 'favorites' ? memories.filter(m => m.isFavorite) : memories;
   const memoryDates = Array.from(new Set(baseMemories.map(m => m.date)));

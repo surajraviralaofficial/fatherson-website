@@ -45,6 +45,6 @@ Since you do not want the client using your personal GitHub or dealing with comp
 1. The client logs into their **Hostinger hPanel**.
 2. They click on **File Manager** and open the `public_html` folder (this is where the website lives).
 3. **To upload photos:** They open the `media` folder and simply drag-and-drop their new `.jpg` or `.png` images from their computer right into Hostinger's browser window!
-4. **To write new memories:** They right-click the `data/memories.json` file inside Hostinger's File Manager and click **Edit**. They can literally copy and paste a new memory block right there in the browser, save it, and the live website updates instantly!
+4. **To write new memories:** They right-click the `public/data/memories.json` file inside Hostinger's File Manager and click **Edit**. They can literally copy and paste a new memory block right there in the browser, save it, and the live website updates instantly without needing a rebuild!
 
 **Note:** If the client wants to update locally on their computer first (like you are doing now), you can zip the entire project folder, email it to them, and tell them to download VSCode and run `npm run dev` just like you do. But the Hostinger File Manager method is usually easiest for non-technical clients!
