@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './page.module.css';
 import SplashScreen from '@/components/SplashScreen';
 import GlassCalendar from '@/components/GlassCalendar';
