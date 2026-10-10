@@ -238,8 +238,26 @@
 @media (max-width: 900px) {
   .datesList {
     max-height: 200px;
+    gap: 8px;
   }
   .calendarWrapper {
-    padding: 15px;
+    padding: 10px;
+    border-radius: 12px;
+  }
+  .monthYear {
+    font-size: 0.8rem;
+  }
+  .dateBtn {
+    padding: 8px;
+    font-size: 0.75rem;
+    gap: 5px;
+  }
+  .actionFilter, .actionFilterAlt, .clearFilter {
+    font-size: 0.75rem;
+    padding: 8px;
+    margin-top: 10px;
+  }
+  .monthGroupTitle {
+    font-size: 0.7rem;
   }
 }
