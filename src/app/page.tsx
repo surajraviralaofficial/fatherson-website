@@ -17,7 +17,14 @@ interface Memory {
 
 export default function Home() {
   const [memories, setMemories] = useState<Memory[]>([]);
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('hasSeenSplash')) {
+      setShowSplash(true);
+      sessionStorage.setItem('hasSeenSplash', 'true');
+    }
+  }, []);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   // Fetch memories dynamically so they can be updated on Hostinger without rebuilding!

@@ -234,3 +234,12 @@
 .hasMemory.selected .dot {
   background: black;
 }
+
+@media (max-width: 900px) {
+  .datesList {
+    max-height: 200px;
+  }
+  .calendarWrapper {
+    padding: 15px;
+  }
+}

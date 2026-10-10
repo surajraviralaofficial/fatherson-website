@@ -93,16 +93,28 @@
 @media (max-width: 900px) {
   .row, .rowReverse {
     flex-direction: column;
-    gap: 40px;
-    padding: 30px;
+    gap: 30px;
+    padding: 40px 0;
   }
 
   .textContent {
-    text-align: center;
+    text-align: left;
+  }
+
+  .textContent h2 {
+    font-size: 2rem;
+  }
+
+  .textContent p {
+    font-size: 1.1rem;
   }
 
   .imageContent img {
-    height: 300px;
+    height: 250px;
+  }
+
+  .header {
+    padding: 40px 5%;
   }
 
   .header h1 {
