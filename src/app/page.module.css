@@ -495,60 +495,86 @@
 
 @media (max-width: 768px) {
   .header {
-    padding: 40px 5%;
+    padding: 30px 5%;
   }
 
   .header h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
 
   .header p {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .heroBanner {
-    height: 250px;
+    height: 200px;
   }
 
   .heroContent {
-    padding: 25px;
+    padding: 20px;
   }
 
   .heroContent h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .stats {
-    flex-direction: column;
-    gap: 15px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-top: 20px;
   }
 
+  .statBtn {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
   .timeline {
-    padding-left: 20px;
+    padding-left: 25px;
+  }
+
+  .timeline::before {
+    left: 0;
+    width: 3px;
   }
 
   .timelineHeader {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
 
   .timelineHeader h3 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .memoryCard {
-    padding: 20px;
-    border-radius: 16px;
-    margin-bottom: 40px;
+    padding: 25px 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+  }
+
+  .memoryCard::before {
+    left: -33px; /* Align with 25px padding + 3px line */
+    width: 14px;
+    height: 14px;
+    top: 30px;
+    border-width: 3px;
   }
 
   .memoryCard h4 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+
+  .memoryImage {
+    height: 200px;
   }
 
   .modalTitle {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    margin-bottom: 20px;
   }
 
   .modalDesc {
@@ -560,6 +586,11 @@
   }
 
   .modalHeader {
-    padding: 20px;
+    padding: 15px 20px;
+  }
+  
+  .backButton {
+    font-size: 0.9rem;
+    padding: 10px 20px;
   }
 }
