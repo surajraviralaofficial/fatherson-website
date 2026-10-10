@@ -21,5 +21,10 @@
 body {
   font-family: 'Outfit', sans-serif;
   color: var(--text-main);
-  background: transparent;
+  background: var(--bg-color);
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
 }
