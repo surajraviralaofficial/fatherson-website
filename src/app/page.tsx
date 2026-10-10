@@ -38,20 +38,30 @@ export default function Home() {
   const openModal = (memory: Memory, startIndex: number = 0) => {
     setActiveMemory(memory);
     setCurrentImageIndex(startIndex);
-    // Push a state to the browser history so the back button works for the modal
-    window.history.pushState({ modalOpen: true }, '');
+    window.location.hash = 'modalOpen';
   };
 
-  // Listen for the browser/mobile back button
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash !== '#modalOpen' && activeMemory) {
+        setActiveMemory(null);
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [activeMemory]);
+
   useEffect(() => {
     const handlePopState = () => {
-      if (activeMemory) {
-        setActiveMemory(null);
+      if (!window.location.hash) {
+        // If back button clicked and we are not in a modal, reset to home view
+        setViewMode('timeline');
+        setSelectedDate(null);
       }
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [activeMemory]);
+  }, []);
 
   const baseMemories = viewMode === 'favorites' ? memories.filter(m => m.isFavorite) : memories;
   const memoryDates = Array.from(new Set(baseMemories.map(m => m.date)));
