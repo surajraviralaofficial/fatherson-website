@@ -5,7 +5,11 @@
     "title": "His First Bicycle Ride",
     "type": "MESSAGE",
     "description": "Today you rode your bicycle without support wheels for the very first time. You were nervous at first but after a few attempts you smiled and shouted, \"Dad, look at me!\" This is a day I will never forget.",
-    "isFavorite": true
+    "isFavorite": true,
+    "mediaUrls": [
+      "/media/image.png",
+      "/media/image copy.png"
+    ]
   },
   {
     "id": "2",
