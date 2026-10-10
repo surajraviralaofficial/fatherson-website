@@ -110,22 +110,30 @@
 
 .timelineSection {
   display: grid;
-  grid-template-columns: 40% 1fr;
-  gap: 15px;
-  align-items: start;
+  grid-template-columns: 1fr;
+  gap: 40px;
   animation: fadeIn 0.5s ease-out;
 }
 
 @media (min-width: 900px) {
   .timelineSection {
     grid-template-columns: 350px 1fr;
-    gap: 40px;
+    align-items: start;
   }
 }
 
 .stickyCalendar {
   position: sticky;
   top: 20px;
+  z-index: 10;
+}
+
+.mobileCalendarToggle {
+  display: none;
+}
+
+.calendarContainer {
+  display: block;
 }
 
 .timeline {
@@ -534,7 +542,7 @@
   }
 
   .timeline {
-    padding-left: 25px;
+    padding-left: 20px;
   }
 
   .timeline::before {
@@ -557,7 +565,7 @@
   }
 
   .memoryCard::before {
-    left: -33px; /* Align with 25px padding + 3px line */
+    left: -28px;
     width: 14px;
     height: 14px;
     top: 30px;
@@ -593,5 +601,40 @@
   .backButton {
     font-size: 0.9rem;
     padding: 10px 20px;
+  }
+
+  .mobileCalendarToggle {
+    display: flex;
+    width: 100%;
+    padding: 15px;
+    background: var(--card-bg);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+  }
+  
+  .mobileCalendarToggle:hover {
+    background: rgba(251, 191, 36, 0.1);
+  }
+
+  .calendarContainer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+  }
+
+  .calendarOpen {
+    max-height: 1000px;
+    opacity: 1;
+    margin-bottom: 30px;
   }
 }

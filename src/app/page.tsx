@@ -18,6 +18,7 @@ interface Memory {
 export default function Home() {
   const [memories, setMemories] = useState<Memory[]>([]);
   const [showSplash, setShowSplash] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   useEffect(() => {
     if (!sessionStorage.getItem('hasSeenSplash')) {
@@ -140,11 +141,25 @@ export default function Home() {
             <section className={styles.timelineSection}>
               {/* Left Column: Glass Calendar Filter */}
               <div className={styles.stickyCalendar}>
-                <GlassCalendar 
-                  memoryDates={memoryDates}
-                  selectedDate={selectedDate}
-                  onSelectDate={setSelectedDate}
-                />
+                <button 
+                  className={styles.mobileCalendarToggle}
+                  onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+                >
+                  {isCalendarOpen ? '▼ Hide Calendar' : '▶ Available Calendar'}
+                </button>
+                
+                <div className={`${styles.calendarContainer} ${isCalendarOpen ? styles.calendarOpen : ''}`}>
+                  <GlassCalendar 
+                    memoryDates={memoryDates}
+                    selectedDate={selectedDate}
+                    onSelectDate={(date) => {
+                      setSelectedDate(date);
+                      if (window.innerWidth <= 768) {
+                        setIsCalendarOpen(false); // auto-close on selection on mobile
+                      }
+                    }}
+                  />
+                </div>
               </div>
 
               {/* Right Column: Filtered Timeline */}
