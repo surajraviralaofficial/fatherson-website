@@ -35,17 +35,16 @@ export default function PhasePage() {
 
       <div className={styles.container}>
         {sections.map((section) => (
-          <section 
-            key={section.id} 
-            className={`${styles.row} ${section.imageRight ? '' : styles.rowReverse}`}
-          >
-            <div className={styles.textContent}>
-              <h2>{section.title}</h2>
-              <p>{section.text}</p>
-            </div>
-            <div className={styles.imageContent}>
-              <img src={section.img} alt={section.title} loading="lazy" />
-            </div>
+          <section key={section.id} className={styles.storySection}>
+            <img 
+              src={section.img} 
+              alt={section.title} 
+              loading="lazy" 
+              className={`${styles.storyImage} ${section.imageRight ? styles.floatRight : styles.floatLeft}`}
+            />
+            <h2>{section.title}</h2>
+            <p>{section.text}</p>
+            <div className={styles.clear}></div>
           </section>
         ))}
       </div>
